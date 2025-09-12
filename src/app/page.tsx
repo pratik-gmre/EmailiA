@@ -1,7 +1,12 @@
+import { LinkAccountButton } from "@/components/link-account-button";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-
-export default function Home() {
-  return (
-   <div className="text-3xl">I am new nepal</div>
-  );
+const Page = async()=>{
+const {userId} =  await auth()
+if(!userId) {
+  redirect('/sign-in')
 }
+  return <LinkAccountButton />
+}
+export default Page

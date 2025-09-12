@@ -3,10 +3,11 @@ import prisma from "@/libs/db";
 export const POST =  async(req:Request)=>{
     const {data} = await req.json()
     console.log("clerk webhook received",data);
-    const emailAddress = "ghimireprateec1@gmail.com"
+    const emailAddress = data.email_addresses[0].email_address
     const firstName = data.first_name
     const lastName = data.last_name
     const id = data.id
+console.log("this is data",data);
 
 
     await prisma.user.create({
@@ -14,7 +15,7 @@ export const POST =  async(req:Request)=>{
             id:id,
             emailAddress:emailAddress,
             firstName:firstName,
-            lastName:lastName
+            lastName:lastName || "ghimire"
 
         }
     })
